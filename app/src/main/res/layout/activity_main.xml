@@ -29,7 +29,7 @@
            android:id="@+id/red_dragon"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:src="@drawable/green_dragon"/>
+           app:srcCompat="@drawable/ic_launcher_foreground"/>
 
    </android.widget.GridLayout>
 
