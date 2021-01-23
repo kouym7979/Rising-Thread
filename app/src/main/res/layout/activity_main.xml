@@ -9,13 +9,40 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/score_num"
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/score"
+        android:text="@string/score"
+        android:textSize="20sp"
+        android:layout_margin="20sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/score_num"
         android:text="@string/main_score"
         android:textSize="20sp"
         android:layout_margin="20sp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/life"
+        android:text="@string/life"
+        android:textSize="20sp"
+        android:layout_margin="20sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/life"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/life_num"
+        android:text="@string/life_num"
+        android:textSize="20sp"
+        android:layout_margin="20sp"/>
 
    <android.widget.GridLayout
        android:layout_width="match_parent"
@@ -25,11 +52,13 @@
        app:layout_constraintLeft_toLeftOf="parent"
        app:layout_constraintTop_toTopOf="parent"
        android:orientation="vertical">
-       <ImageView
-           android:id="@+id/red_dragon"
+       <TextView
+           android:id="@+id/main_text"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           app:srcCompat="@drawable/ic_launcher_foreground"/>
+           android:textSize="20sp"
+           tools:text="테스트"
+           />
 
    </android.widget.GridLayout>
 

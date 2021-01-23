@@ -10,6 +10,7 @@ import android.os.SystemClock
 import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import com.example.thread.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     var handler:Handler = Handler(Looper.getMainLooper())
     var runnable:Runnable= Runnable {  }
 
+    private val intArr = arrayOfNulls<Int>(100)
 
     private lateinit var binding:ActivityMainBinding
 
@@ -30,6 +32,12 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        for( i in 0..99){
+            intArr.set(i,i)//값 설정
+        }
+
+
         val thread = ThreadClass()
 
         width=display.widthPixels
@@ -39,14 +47,10 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-    fun DragonMove(image1 : ImageView, posX:Float, posY:Float,duration1:Long){
+    fun TextMove(text1 : TextView, posX:Float, posY:Float, duration1:Long){
         runnable=object:Runnable{
             override fun run() {
-                /*ObjectAnimator.ofFloat(image1,"translationX",posX).apply {
-                    duration=duration1
-                    start()
-                }*/
-                ObjectAnimator.ofFloat(image1,"translationY",posY).apply {
+                ObjectAnimator.ofFloat(text1,"translationY",posY).apply {
                     duration=duration1
                     start()
                 }
@@ -62,8 +66,13 @@ class MainActivity : AppCompatActivity() {
         override fun run(){
             while (isRunning){
                 SystemClock.sleep(100)//0.1초 간격
-                DragonMove(binding.redDragon, 0f,1000f,1000L)
-                Log.d("확인",System.currentTimeMillis().toString())
+                //for (i in 0..10) {
+                for(i in 0..99) {
+                    binding.mainText.setText("${intArr[i]}")
+                    TextMove(binding.mainText, 0f, 1000f, 1000L)
+                }
+                //}
+                //Log.d("확인",System.currentTimeMillis().toString()) 
             }
         }
     }
