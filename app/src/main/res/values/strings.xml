@@ -7,4 +7,5 @@
     <string name="time">시간:</string>
     <string name="life_num">100</string>
     <string name="start_name">Catch The Monster</string>
+    <string name="level">난이도 업!</string>
 </resources>

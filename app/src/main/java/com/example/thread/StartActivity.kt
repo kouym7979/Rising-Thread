@@ -33,7 +33,10 @@ class StartActivity : AppCompatActivity() {
 
         binding.btnStart.setOnClickListener {
             var intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
+            finish()
+
         }
 
         val thread = ThreadClass()
@@ -61,7 +64,7 @@ class StartActivity : AppCompatActivity() {
     inner class ThreadClass : Thread() {
         override fun run() {
             //runOnUiThread {
-                TextMove(binding.startText, 0f, 720f, 1000L)
+                TextMove(binding.startText, 0f, 750f, 1000L)
             //}
         }
     }
@@ -72,6 +75,9 @@ class StartActivity : AppCompatActivity() {
         isRunning = false
     }
 
+    override fun onStop() {
+        super.onStop()
+    }
     override fun onResume() {
         super.onResume()
     }
