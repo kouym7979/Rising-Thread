@@ -4,6 +4,7 @@
     <string name="ranking">점수보기</string>
     <string name="main_score">0</string>
     <string name="score">점수:</string>
-    <string name="life">체력:</string>
+    <string name="time">시간:</string>
     <string name="life_num">100</string>
+    <string name="start_name">Catch The Monster</string>
 </resources>

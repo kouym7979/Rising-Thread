@@ -4,31 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3BF6DF04"
     tools:context=".StartActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_name"
+        android:id="@+id/start_text"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/start_dragon"
-        android:src="@drawable/ic_main_dragon"
+        android:src="@drawable/ic_main_monster"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="80sp"/>
+        android:layout_marginTop="90sp"/>
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start"
         android:id="@+id/btn_start"
-        android:layout_marginTop="30sp"
+        android:textStyle="italic"
+        android:textSize="25sp"
+        android:layout_marginTop="110sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
        app:layout_constraintTop_toBottomOf="@+id/start_dragon"/>
-    <Button
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ranking"
+        android:textSize="25sp"
+        android:textStyle="italic"
         android:id="@+id/btn_rank"
         android:layout_marginTop="50sp"
         app:layout_constraintRight_toRightOf="parent"

@@ -2,22 +2,27 @@ package com.example.thread
 
 import android.animation.ObjectAnimator
 import android.hardware.display.DisplayManager
+import android.media.MediaPlayer
+import android.os.*
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.SystemClock
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.thread.databinding.ActivityMainBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var isRunning =true
     var handler:Handler = Handler(Looper.getMainLooper())
     var runnable:Runnable= Runnable {  }
-
+    lateinit var media2 : MediaPlayer
+    var score=0
+    var imageArr=ArrayList<ImageView>()
+    private var time:Long =10000
+    private var main_delay :Long = 800
     private val intArr = arrayOfNulls<Int>(100)
 
     private lateinit var binding:ActivityMainBinding
@@ -32,55 +37,84 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        media2=MediaPlayer.create(this,R.raw.attack)
 
-        for( i in 0..99){
-            intArr.set(i,i)//값 설정
-        }
+        imageArr= arrayListOf(binding.imageView,binding.imageView2,binding.imageView3,
+                            binding.imageView4,binding.imageView5,binding.imageView6,
+                            binding.imageView7,binding.imageView8,binding.imageView9)
+
+        hideImage(main_delay)
+        binding.roundUp.setOnClickListener(this)
 
 
-        val thread = ThreadClass()
+        //이걸 쓰레드에 넣었다가 재시작
+        object:CountDownTimer(time, 1000){
+            override fun onFinish() {
+                binding.time.text="Game Over"
+                handler.removeCallbacks(runnable)
+                for(image in imageArr){
+                    image.visibility= View.INVISIBLE
+                }
+                media2.pause()
+
+
+            }
+            override fun onTick(millisUntilFinished: Long) {
+                binding.time.text="Time:"+millisUntilFinished/1000
+            }
+        }.start()
+
+        //val thread = ThreadClass()
 
         width=display.widthPixels
         height=display.heightPixels
         Log.d("확인","height:"+height)
-        thread.start()
+        //thread.start()
 
 
     }
-    fun TextMove(text1 : TextView, posX:Float, posY:Float, duration1:Long){
-        runnable=object:Runnable{
+
+    fun hideImage(deley :Long) {
+
+        runnable = object : Runnable {
             override fun run() {
-                ObjectAnimator.ofFloat(text1,"translationY",posY).apply {
-                    duration=duration1
-                    start()
+                for (image in imageArr) {
+                    image.visibility = View.INVISIBLE
                 }
-                handler.postDelayed(runnable,duration1)
+
+                val random = Random()
+                val index = random.nextInt(8 - 0)
+                imageArr[index].visibility = View.VISIBLE
+
+                handler.postDelayed(runnable, deley)
+
             }
         }
         handler.post(runnable)
-
-    }
-    //안드로이드에서 UI는 메인 쓰레드에서만 접근할 수 있다. 다른 쓰레드에서는 접근할 수 없다.
-    //runOnUiThread메소드를 통해서 메인 쓰레드의 UI를 접근할 수 있다.
-    inner class ThreadClass:Thread(){
-        override fun run(){
-            while (isRunning){
-                SystemClock.sleep(100)//0.1초 간격
-                //for (i in 0..10) {
-                for(i in 0..99) {
-                    binding.mainText.setText("${intArr[i]}")
-                    TextMove(binding.mainText, 0f, 1000f, 1000L)
-                }
-                //}
-                //Log.d("확인",System.currentTimeMillis().toString()) 
-            }
-        }
     }
 
+    fun increaseScore(view: View) {
+        score++
+        media2.start()
+        binding.score.text = "Score: " + score
+        media2.start()
+    }
     override fun onDestroy() {
-        super.onDestroy()
         Log.d("확인","종료되었습니다.")
         isRunning=false
+        super.onDestroy()
     }
+
+    override fun onStop() {
+        media2.pause()
+        super.onStop()
+    }
+
+    override fun onClick(v: View?) {
+        main_delay-=50
+        //hideImage(main_deley)
+
+    }
+
 
 }
